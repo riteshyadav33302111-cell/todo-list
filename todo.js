@@ -1,47 +1,27 @@
-let lengthSlider = document.getElementById("length");
-let lengthValue = document.getElementById("lengthValue");
+function addTask(){
 
-lengthSlider.oninput = function(){
-lengthValue.innerText = this.value;
-}
+    let input = document.getElementById("taskInput");
+    let task = input.value;
 
-function generatePassword(){
+    if(task === ""){
+        alert("Enter a task");
+        return;
+    }
 
-let length = lengthSlider.value;
+    let li = document.createElement("li");
+    li.innerText = task;
 
-let uppercase = document.getElementById("uppercase").checked;
-let lowercase = document.getElementById("lowercase").checked;
-let numbers = document.getElementById("numbers").checked;
-let symbols = document.getElementById("symbols").checked;
+    let delBtn = document.createElement("button");
+    delBtn.innerText = "Delete";
+    delBtn.classList.add("delete");
 
-let characters = "";
+    delBtn.onclick = function(){
+        li.remove();
+    }
 
-if(uppercase) characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-if(lowercase) characters += "abcdefghijklmnopqrstuvwxyz";
-if(numbers) characters += "0123456789";
-if(symbols) characters += "!@#$%^&*()";
+    li.appendChild(delBtn);
 
-let password = "";
+    document.getElementById("taskList").appendChild(li);
 
-for(let i=0;i<length;i++){
-
-let randomIndex = Math.floor(Math.random()*characters.length);
-
-password += characters[randomIndex];
-
-}
-
-document.getElementById("password").value = password;
-
-}
-
-function copyPassword(){
-
-let passwordField = document.getElementById("password");
-
-passwordField.select();
-document.execCommand("copy");
-
-alert("Password Copied!");
-
+    input.value = "";
 }
